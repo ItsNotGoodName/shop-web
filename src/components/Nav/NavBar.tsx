@@ -2,11 +2,11 @@ import { Button, Flex, Heading, MenuItem, Spinner } from "@chakra-ui/core";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import userService from "../services/userService";
-import { UserType } from "../types";
+import userService from "../../services/userService";
+import { UserType } from "../../types";
 import { NavItem } from "./NavItem";
 import NavMenu from "./NavMenu";
-import SearchBox from "./SearchBox";
+import SearchBox from "../SearchBox";
 
 export const NavBar: React.FC = () => {
   const [user, setUser] = useState<UserType | undefined>();

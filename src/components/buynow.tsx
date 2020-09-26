@@ -1,8 +1,7 @@
 import { Button, Stack, Text } from "@chakra-ui/core";
-import { NextPage } from "next";
 import { useState } from "react";
 
-export const BuyNow: NextPage = (props) => {
+export const BuyNow: React.FC = () => {
   const [buying, setBuying] = useState(false);
   const onClickHandler = () => {};
   return (

@@ -1,6 +1,5 @@
 import { Flex, Stack, Text } from "@chakra-ui/core";
-import { NextPage } from "next";
-export const TitleDesc: NextPage = (props) => {
+export const TitleDesc: React.FC = () => {
   return (
     <Stack p="10px" w={["100%", "100%", "auto"]}>
       <Flex>
