@@ -8,7 +8,7 @@ export type NavItemProp = {
 export const NavItem: React.FC<NavItemProp> = ({ href, children }) => {
   return (
     <NextLink href={href}>
-      <Link _hover={{ bg: "gray.100" }}>
+      <Link as="button" _hover={{ bg: "gray.100" }}>
         <Box p={3}>{children}</Box>
       </Link>
     </NextLink>

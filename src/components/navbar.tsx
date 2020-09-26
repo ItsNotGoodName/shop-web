@@ -1,9 +1,11 @@
-import { Box, Button, Flex, Heading, Link, Spinner } from "@chakra-ui/core";
+import { Button, Flex, Heading, MenuItem, Spinner } from "@chakra-ui/core";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import userService from "../services/userService";
 import { UserType } from "../types";
 import { NavItem } from "./NavItem";
+import NavMenu from "./NavMenu";
 import SearchBox from "./SearchBox";
 
 export const NavBar: React.FC = () => {
@@ -31,9 +33,17 @@ export const NavBar: React.FC = () => {
   if (loading) {
     body = <Spinner mx={4} mt="auto" mb="auto" />;
   } else {
+    // :TODO Fix crash on pressing enter on menu items
     body = user ? (
       <>
-        <NavItem href="/user">Account</NavItem>
+        <NavMenu text="Account">
+          <NextLink href="/user">
+            <MenuItem>Account</MenuItem>
+          </NextLink>
+          <NextLink href="/sell">
+            <MenuItem>Sell</MenuItem>
+          </NextLink>
+        </NavMenu>
         <Flex>
           <Button
             variant="ghost"
