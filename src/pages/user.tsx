@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/core";
+import { Box, Spinner, Stack, Text } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
@@ -26,7 +26,18 @@ const User: NextPage = () => {
   return (
     <Layout>
       <Wrapper>
-        {user ? <Box>{user.username}</Box> : <Text>Loading Profile...</Text>}
+        {user ? (
+          <Stack>
+            <Text>Username = {user.username}</Text>
+            <Text>Email = {user.email}</Text>
+            <Text>
+              Created ={" "}
+              {new Date(parseInt(user.createdAt)).toLocaleDateString()}
+            </Text>
+          </Stack>
+        ) : (
+          <Spinner />
+        )}
       </Wrapper>
     </Layout>
   );

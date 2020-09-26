@@ -1,12 +1,14 @@
-import { Box, Button, Flex, Link } from "@chakra-ui/core";
-import NextLink from "next/link";
+import { Box, Button, Flex, Heading, Link, Spinner } from "@chakra-ui/core";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import userService from "../services/userService";
 import { UserType } from "../types";
+import { NavItem } from "./NavItem";
+import SearchBox from "./SearchBox";
 
 export const NavBar: React.FC = () => {
   const [user, setUser] = useState<UserType | undefined>();
+  const [loading, setLoading] = useState(true);
   const [loggingOut, setLogginOut] = useState<Boolean>(false);
   const router = useRouter();
 
@@ -14,6 +16,7 @@ export const NavBar: React.FC = () => {
     userService
       .me()
       .then((data) => {
+        setLoading(false);
         if (data.errors) {
           return;
         }
@@ -24,45 +27,51 @@ export const NavBar: React.FC = () => {
       });
   }, []);
 
+  let body;
+  if (loading) {
+    body = <Spinner mx={4} mt="auto" mb="auto" />;
+  } else {
+    body = user ? (
+      <>
+        <NavItem href="/user">Account</NavItem>
+        <Flex>
+          <Button
+            variant="ghost"
+            rounded="false"
+            height="100%"
+            fontWeight="0"
+            onClick={() => {
+              setLogginOut(true);
+              userService.logout().then(() => {
+                setUser(undefined);
+                router.push("/");
+              });
+            }}
+            isLoading={!!loggingOut}
+          >
+            Logout
+          </Button>
+        </Flex>
+      </>
+    ) : (
+      <>
+        <NavItem href="/login">Login</NavItem>
+        <NavItem href="/register">Register</NavItem>
+      </>
+    );
+  }
+
   return (
-    <Flex background="tan" zIndex={1} position="sticky" p={4} top={0}>
+    <Flex background="#E09873" zIndex={1} position="sticky" top={0}>
       <Flex>
-        <NextLink href="/">
-          <Link>Home</Link>
-        </NextLink>
+        <NavItem href="/">
+          <Heading as="h4" size="md">
+            Home
+          </Heading>
+        </NavItem>
       </Flex>
-      <Flex ml="auto">
-        {user ? (
-          <>
-            <NextLink href="/user">
-              <Link ml={4}>{user.username}</Link>
-            </NextLink>
-            <Button
-              ml={4}
-              variant="link"
-              onClick={() => {
-                setLogginOut(true);
-                userService.logout().then(() => {
-                  setUser(undefined);
-                  router.push("/");
-                });
-              }}
-              isLoading={!!loggingOut}
-            >
-              Logout
-            </Button>
-          </>
-        ) : (
-          <>
-            <NextLink href="/login">
-              <Link ml={4}>Login</Link>
-            </NextLink>
-            <NextLink href="/register">
-              <Link ml={4}>Register</Link>
-            </NextLink>
-          </>
-        )}
-      </Flex>
+      <SearchBox />
+      <Flex ml="auto">{body}</Flex>
     </Flex>
   );
 };

@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { UserType } from "../types";
 
 type UserResponse = {
   errors?: [
@@ -7,11 +8,7 @@ type UserResponse = {
       msg: string;
     }
   ];
-  user?: {
-    id: number;
-    username: string;
-    email: string;
-  };
+  user?: UserType;
 };
 
 const SERVER_ERROR: UserResponse = {
@@ -22,6 +19,7 @@ export default {
   me: async (): Promise<UserResponse> => {
     try {
       const res = await Axios.get("/user/me");
+      console.log(res.data);
       return res.data;
     } catch (error) {
       return SERVER_ERROR;
