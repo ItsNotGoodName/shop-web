@@ -34,6 +34,7 @@ const User: NextPage = () => {
               Created ={" "}
               {new Date(parseInt(user.createdAt)).toLocaleDateString()}
             </Text>
+            <Text>Balance = {user.balance}</Text>
           </Stack>
         ) : (
           <Spinner />
