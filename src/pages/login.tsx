@@ -1,8 +1,9 @@
 import { Box, Button, Flex, Link } from "@chakra-ui/core";
 import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
+import * as Yup from "yup";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
@@ -14,12 +15,18 @@ type LoginParameters = {
   password: string;
 };
 
+const LoginSchema = Yup.object().shape({
+  usernameOrEmail: Yup.string().required("Required"),
+  password: Yup.string().required("Required"),
+});
+
 const Login = () => {
   const router = useRouter();
   return (
     <Layout>
       <Wrapper>
         <Formik
+          validationSchema={LoginSchema}
           initialValues={
             { usernameOrEmail: "", password: "" } as LoginParameters
           }

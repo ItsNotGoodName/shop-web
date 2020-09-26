@@ -1,8 +1,9 @@
-import { Link, Box, Button, Text, Flex } from "@chakra-ui/core";
+import { Box, Button, Flex, Link } from "@chakra-ui/core";
 import { Form, Formik } from "formik";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import NextLink from "next/link";
+import * as Yup from "yup";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
@@ -13,7 +14,15 @@ type RegisterParameters = {
   email: string;
   username: string;
   password: string;
+  passwordCheck: string;
 };
+
+const RegisterSchema = Yup.object().shape({
+  username: Yup.string().min(3, "Too Short!").required("Required"),
+  password: Yup.string().min(3, "Too Short!").required("Required"),
+  passwordCheck: Yup.string().min(3, "Too Short!").required("Required"),
+  email: Yup.string().email("Invalid email").required("Required"),
+});
 
 const Register = () => {
   const router = useRouter();
@@ -21,8 +30,14 @@ const Register = () => {
     <Layout>
       <Wrapper>
         <Formik
+          validationSchema={RegisterSchema}
           initialValues={
-            { email: "", username: "", password: "" } as RegisterParameters
+            {
+              email: "",
+              username: "",
+              password: "",
+              passwordCheck: "",
+            } as RegisterParameters
           }
           onSubmit={async (values: RegisterParameters, { setErrors }) => {
             const data = await userService.register(values);
@@ -34,7 +49,7 @@ const Register = () => {
             router.push("/");
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, setValues, values }) => (
             <Box>
               <Form>
                 <Box mb={2}>
@@ -48,6 +63,21 @@ const Register = () => {
                     name="password"
                     label="Password"
                     type="password"
+                  />
+                </Box>
+                <Box mb={2}>
+                  <InputField
+                    name="passwordCheck"
+                    label="Repeat Password"
+                    type="password"
+                    validate={(value) => {
+                      let error;
+                      if (value !== values.password) {
+                        console.log(value);
+                        error = "Passwords do not match";
+                      }
+                      return error;
+                    }}
                   />
                 </Box>
                 <NextLink href="/login">
