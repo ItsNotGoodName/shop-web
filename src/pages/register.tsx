@@ -1,26 +1,29 @@
-import { Box, Button, Flex, FormControl, FormLabel } from "@chakra-ui/core";
-import Axios from "axios";
-import { Field, Form, Formik } from "formik";
+import { Box, Button, Text, Flex } from "@chakra-ui/core";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/layout";
 import userService from "../services/userService";
 import { toErrorMap } from "../utils/toErrorMap";
 
-type LoginParameters = {
-  usernameOrEmail: string;
+type RegisterParameters = {
+  email: string;
+  username: string;
   password: string;
 };
 
-const Login = () => {
+const Register = () => {
   const router = useRouter();
   return (
     <Layout>
       <Formik
-        initialValues={{ usernameOrEmail: "", password: "" } as LoginParameters}
-        onSubmit={async (values: LoginParameters, { setErrors }) => {
-          const data = await userService.login(values);
+        initialValues={
+          { email: "", username: "", password: "" } as RegisterParameters
+        }
+        onSubmit={async (values: RegisterParameters, { setErrors }) => {
+          const data = await userService.register(values);
+          console.log(data);
           if (data.errors) {
             setErrors(toErrorMap(data.errors));
             return;
@@ -32,18 +35,17 @@ const Login = () => {
           <Box mx="auto" w={500}>
             <Form>
               <Box mb={2}>
-                <InputField
-                  name="usernameOrEmail"
-                  label="Username or Email"
-                  type="text"
-                />
+                <InputField name="email" label="Email" type="text" />
+              </Box>
+              <Box mb={2}>
+                <InputField name="username" label="Username" type="text" />
               </Box>
               <Box mb={2}>
                 <InputField name="password" label="Password" type="password" />
               </Box>
               <Flex>
                 <Button mx="auto" isLoading={isSubmitting} type="submit">
-                  Login
+                  Register
                 </Button>
               </Flex>
             </Form>
@@ -54,4 +56,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
