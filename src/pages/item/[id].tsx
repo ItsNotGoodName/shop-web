@@ -2,8 +2,8 @@ import { Box, Flex, Image } from "@chakra-ui/core";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import BuyNow from "../../components/buynow";
-import TitleDesc from "../../components/titledesc";
+import BuyNow from "../../components/BuyNow";
+import TitleDesc from "../../components/TitleDesc";
 
 export const Item: NextPage = (props) => {
   const router = useRouter();

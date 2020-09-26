@@ -3,12 +3,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import userService from "../services/userService";
-
-type UserType = {
-  id: number;
-  username: string;
-  email: string;
-};
+import { UserType } from "../types";
 
 export const NavBar: React.FC = () => {
   const [user, setUser] = useState<UserType | undefined>();
@@ -30,7 +25,7 @@ export const NavBar: React.FC = () => {
   }, []);
 
   return (
-    <Flex zIndex={1} position="sticky" p={4} top={0}>
+    <Flex background="tan" zIndex={1} position="sticky" p={4} top={0}>
       <Flex>
         <NextLink href="/">
           <Link>Home</Link>
@@ -39,7 +34,9 @@ export const NavBar: React.FC = () => {
       <Flex ml="auto">
         {user ? (
           <>
-            <Link ml={4}>{user.username}</Link>
+            <NextLink href="/user">
+              <Link ml={4}>{user.username}</Link>
+            </NextLink>
             <Button
               ml={4}
               variant="link"
