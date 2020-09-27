@@ -5,3 +5,14 @@ export type UserType = {
   balance: number;
   createdAt: string;
 };
+
+export type ItemType = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  sellor: {
+    id: number;
+    username: string;
+  };
+};
