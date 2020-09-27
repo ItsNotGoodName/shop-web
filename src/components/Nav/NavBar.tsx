@@ -72,7 +72,7 @@ export const NavBar: React.FC = () => {
   }
 
   return (
-    <Flex background="#E09873" zIndex={1} position="sticky" top={0}>
+    <Flex mb={4} background="#E09873" zIndex={1} position="sticky" top={0}>
       <Flex>
         <NavItem href="/">
           <Heading as="h4" size="md">
