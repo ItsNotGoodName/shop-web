@@ -33,7 +33,8 @@ export const ItemCard: React.FC<ItemCardProps> = ({
         <NextLink href={href}>
           <Link>
             <Image
-              h={height}
+              size={height}
+              objectFit="scale-down"
               src="https://images-na.ssl-images-amazon.com/images/I/61PIjLe6SVL._AC_SL1500_.jpg"
               alt="Item Picture"
             ></Image>
