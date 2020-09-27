@@ -1,12 +1,13 @@
 import { Flex, Spinner } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
+import Banner from "../components/Banner";
 import ItemCard from "../components/ItemCard";
 import { Layout } from "../components/Layout";
 import { PageType, Paginator } from "../components/Paginator";
 import { Wrapper } from "../components/Wrapper";
 import itemService from "../services/itemService";
-import { ItemType } from "../types";
+import { ErrorType, ItemType } from "../types";
 
 const Index: NextPage = () => {
   const [items, setItems] = useState<ItemType[]>();
@@ -15,16 +16,18 @@ const Index: NextPage = () => {
     maxPage: -1,
   });
   const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState<ErrorType[]>();
 
   useEffect(() => {
     setLoading(true);
     itemService
       .getNewItems(page.currentPage)
-      .then(({ errors, items, maxPage }) => {
-        if (errors || !items) {
+      .then(({ errors: errs, items, maxPage }) => {
+        if (errs) {
+          setErrors(errs);
           return;
         }
-        console.log("hi");
+
         setItems(items);
         setPage((p) => {
           p.maxPage = maxPage ? maxPage : -1;
@@ -34,9 +37,19 @@ const Index: NextPage = () => {
       });
   }, [page]);
 
-  return (
-    <Layout>
-      <Wrapper variant="wide">
+  let body;
+  if (errors) {
+    body = errors.map((e) => (
+      <Banner
+        key={e.field}
+        status="error"
+        title={e.field.toUpperCase()}
+        message={e.msg}
+      />
+    ));
+  } else {
+    body = (
+      <>
         {!loading && items ? (
           items.map((item) => (
             <ItemCard
@@ -53,10 +66,18 @@ const Index: NextPage = () => {
             <Spinner mx="auto" />
           </Flex>
         )}
-      </Wrapper>
-      <Flex mb={5}>
-        <Paginator setPage={setPage} page={page} mx="auto" />
-      </Flex>
+        {items ? (
+          <Flex my={5}>
+            <Paginator setPage={setPage} page={page} mx="auto" />
+          </Flex>
+        ) : null}
+      </>
+    );
+  }
+
+  return (
+    <Layout>
+      <Wrapper variant="wide">{body}</Wrapper>
     </Layout>
   );
 };

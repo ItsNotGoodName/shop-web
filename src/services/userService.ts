@@ -1,18 +1,10 @@
 import Axios from "axios";
-import { UserType } from "../types";
+import { SERVER_ERROR } from "../errors";
+import { ErrorType, UserType } from "../types";
 
 type UserResponse = {
-  errors?: [
-    {
-      field: string;
-      msg: string;
-    }
-  ];
+  errors?: ErrorType;
   user?: UserType;
-};
-
-const SERVER_ERROR: UserResponse = {
-  errors: [{ field: "server", msg: "Could not access server" }],
 };
 
 export default {
@@ -22,7 +14,7 @@ export default {
       console.log(res.data);
       return res.data;
     } catch (error) {
-      return SERVER_ERROR;
+      return SERVER_ERROR as UserResponse;
     }
   },
   login: async (data: {
@@ -33,7 +25,7 @@ export default {
       const res = await Axios.post("/user/login", data);
       return res.data;
     } catch (error) {
-      return SERVER_ERROR;
+      return SERVER_ERROR as UserResponse;
     }
   },
   register: async (data: {
@@ -45,7 +37,7 @@ export default {
       const res = await Axios.post("/user/register", data);
       return res.data;
     } catch (error) {
-      return SERVER_ERROR;
+      return SERVER_ERROR as UserResponse;
     }
   },
   logout: async (): Promise<UserResponse> => {
@@ -53,7 +45,7 @@ export default {
       const res = await Axios.post("/user/logout");
       return res.data;
     } catch (error) {
-      return SERVER_ERROR;
+      return SERVER_ERROR as UserResponse;
     }
   },
 };

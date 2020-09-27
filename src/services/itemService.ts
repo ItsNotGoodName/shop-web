@@ -1,10 +1,11 @@
 import Axios from "axios";
-import { ItemType } from "../types";
+import { SERVER_ERROR } from "../errors";
+import { ErrorType, ItemType } from "../types";
 
 export type ItemsRepsonse = {
   items?: ItemType[];
   maxPage?: number;
-  errors?: [{ field: string; msg: string }];
+  errors?: ErrorType[];
 };
 
 export default {
@@ -14,7 +15,7 @@ export default {
       console.log(res.data);
       return res.data;
     } catch (error) {
-      return { errors: [{ field: "", msg: "" }] };
+      return SERVER_ERROR as ItemsRepsonse;
     }
   },
 };

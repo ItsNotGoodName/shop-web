@@ -16,3 +16,8 @@ export type ItemType = {
     username: string;
   };
 };
+
+export type ErrorType = {
+  field: string;
+  msg: string;
+};
