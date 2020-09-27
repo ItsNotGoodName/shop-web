@@ -3,7 +3,7 @@ import { ItemType } from "../types";
 
 export type ItemsRepsonse = {
   items?: ItemType[];
-  maxPages?: number;
+  maxPage?: number;
   errors?: [{ field: string; msg: string }];
 };
 

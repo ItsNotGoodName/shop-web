@@ -1,30 +1,43 @@
-import { Box, Flex, Spinner } from "@chakra-ui/core";
+import { Flex, Spinner } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
 import { Layout } from "../components/Layout";
+import { PageType, Paginator } from "../components/Paginator";
 import { Wrapper } from "../components/Wrapper";
 import itemService from "../services/itemService";
 import { ItemType } from "../types";
 
 const Index: NextPage = () => {
   const [items, setItems] = useState<ItemType[]>();
+  const [page, setPage] = useState<PageType>({
+    currentPage: 1,
+    maxPage: -1,
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    itemService.getNewItems().then(({ errors, items, maxPages }) => {
-      if (errors || !items) {
-        return;
-      }
-      setItems(items);
-      setLoading(false);
-    });
-  }, []);
+    setLoading(true);
+    itemService
+      .getNewItems(page.currentPage)
+      .then(({ errors, items, maxPage }) => {
+        if (errors || !items) {
+          return;
+        }
+        console.log("hi");
+        setItems(items);
+        setPage((p) => {
+          p.maxPage = maxPage ? maxPage : -1;
+          return p;
+        });
+        setLoading(false);
+      });
+  }, [page]);
 
   return (
     <Layout>
       <Wrapper variant="wide">
-        {items ? (
+        {!loading && items ? (
           items.map((item) => (
             <ItemCard
               key={item.id}
@@ -41,6 +54,9 @@ const Index: NextPage = () => {
           </Flex>
         )}
       </Wrapper>
+      <Flex mb={5}>
+        <Paginator setPage={setPage} page={page} mx="auto" />
+      </Flex>
     </Layout>
   );
 };
