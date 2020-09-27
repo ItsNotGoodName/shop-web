@@ -1,4 +1,4 @@
-import { Box, Spinner, Stack, Text } from "@chakra-ui/core";
+import { Box, Flex, Spinner, Stack, Text } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
@@ -37,7 +37,9 @@ const User: NextPage = () => {
             <Text>Balance = {user.balance}</Text>
           </Stack>
         ) : (
-          <Spinner />
+          <Flex>
+            <Spinner mx="auto" />
+          </Flex>
         )}
       </Wrapper>
     </Layout>

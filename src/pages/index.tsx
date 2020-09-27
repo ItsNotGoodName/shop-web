@@ -1,4 +1,4 @@
-import { Box, Spinner } from "@chakra-ui/core";
+import { Box, Flex, Spinner } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
@@ -36,7 +36,9 @@ const Index: NextPage = () => {
             ></ItemCard>
           ))
         ) : (
-          <Spinner />
+          <Flex>
+            <Spinner mx="auto" />
+          </Flex>
         )}
       </Wrapper>
     </Layout>

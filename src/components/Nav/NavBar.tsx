@@ -31,7 +31,7 @@ export const NavBar: React.FC = () => {
 
   let body;
   if (loading) {
-    body = <Spinner mx={4} mt="auto" mb="auto" />;
+    body = <Spinner mx={4} my="auto" />;
   } else {
     // :TODO Fix crash on pressing enter on menu items
     body = user ? (
