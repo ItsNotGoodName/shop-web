@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Link } from "@chakra-ui/core";
+import { Box, Button, Flex, Link, useToast } from "@chakra-ui/core";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -22,6 +22,7 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const router = useRouter();
+  const toast = useToast();
   return (
     <Layout>
       <Wrapper>
@@ -36,6 +37,12 @@ const Login = () => {
               setErrors(toErrorMap(data.errors));
               return;
             }
+            toast({
+              title: "Successfully Logged In",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+            });
             router.push("/");
           }}
         >
