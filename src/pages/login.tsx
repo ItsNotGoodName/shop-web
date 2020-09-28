@@ -36,7 +36,16 @@ const Login = () => {
           onSubmit={async (values: LoginParameters, { setErrors }) => {
             const data = await userService.login(values);
             if (data.errors) {
-              setErrors(toErrorMap(data.errors));
+              const errorMap = toErrorMap(data.errors);
+              if (errorMap.server) {
+                toast({
+                  title: "Could not acess server",
+                  status: "error",
+                  duration: 5000,
+                  isClosable: true,
+                });
+              }
+              setErrors(errorMap);
               return;
             }
             toast({

@@ -46,7 +46,16 @@ const Register = () => {
             const data = await userService.register(values);
             console.log(data);
             if (data.errors) {
-              setErrors(toErrorMap(data.errors));
+              const errorMap = toErrorMap(data.errors);
+              if (errorMap.server) {
+                toast({
+                  title: "Could not acess server",
+                  status: "error",
+                  duration: 5000,
+                  isClosable: true,
+                });
+              }
+              setErrors(errorMap);
               return;
             }
             router.push("/");
