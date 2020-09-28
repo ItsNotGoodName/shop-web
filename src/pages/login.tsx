@@ -28,6 +28,8 @@ const Login = () => {
       <Wrapper>
         <Formik
           validationSchema={LoginSchema}
+          validateOnChange={false}
+          validateOnBlur={false}
           initialValues={
             { usernameOrEmail: "", password: "" } as LoginParameters
           }

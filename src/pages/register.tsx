@@ -31,6 +31,8 @@ const Register = () => {
     <Layout>
       <Wrapper>
         <Formik
+          validateOnChange={false}
+          validateOnBlur={false}
           validationSchema={RegisterSchema}
           initialValues={
             {
