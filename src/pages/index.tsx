@@ -30,7 +30,7 @@ const Index: NextPage = () => {
 
         setItems(items);
         setPage((p) => {
-          p.maxPage = maxPage ? maxPage : -1;
+          p.maxPage = maxPage!;
           return p;
         });
         setLoading(false);
@@ -51,26 +51,29 @@ const Index: NextPage = () => {
     body = (
       <>
         {!loading && items ? (
-          items.map((item) => (
-            <ItemCard
-              key={item.id}
-              href="/user"
-              title={item.title}
-              description={item.description}
-              price={item.price}
-              username={item.sellor.username}
-            ></ItemCard>
-          ))
+          <>
+            <Flex mb={5}>
+              <Paginator setPage={setPage} page={page} mx="auto" />
+            </Flex>
+            {items.map((item) => (
+              <ItemCard
+                key={item.id}
+                href={`/item/${encodeURIComponent(item.id)}`}
+                title={item.title}
+                description={item.description}
+                price={item.price}
+                username={item.sellor.username}
+              />
+            ))}
+            <Flex my={5}>
+              <Paginator setPage={setPage} page={page} mx="auto" />
+            </Flex>
+          </>
         ) : (
           <Flex>
             <Spinner mx="auto" />
           </Flex>
         )}
-        {items ? (
-          <Flex my={5}>
-            <Paginator setPage={setPage} page={page} mx="auto" />
-          </Flex>
-        ) : null}
       </>
     );
   }

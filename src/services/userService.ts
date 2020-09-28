@@ -3,7 +3,7 @@ import { SERVER_ERROR } from "../errors";
 import { ErrorType, UserType } from "../types";
 
 type UserResponse = {
-  errors?: ErrorType;
+  errors?: ErrorType[];
   user?: UserType;
 };
 
@@ -11,10 +11,9 @@ export default {
   me: async (): Promise<UserResponse> => {
     try {
       const res = await Axios.get("/user/me");
-      console.log(res.data);
       return res.data;
     } catch (error) {
-      return SERVER_ERROR as UserResponse;
+      return SERVER_ERROR;
     }
   },
   login: async (data: {
@@ -25,7 +24,7 @@ export default {
       const res = await Axios.post("/user/login", data);
       return res.data;
     } catch (error) {
-      return SERVER_ERROR as UserResponse;
+      return SERVER_ERROR;
     }
   },
   register: async (data: {
@@ -37,7 +36,7 @@ export default {
       const res = await Axios.post("/user/register", data);
       return res.data;
     } catch (error) {
-      return SERVER_ERROR as UserResponse;
+      return SERVER_ERROR;
     }
   },
   logout: async (): Promise<UserResponse> => {
@@ -45,7 +44,7 @@ export default {
       const res = await Axios.post("/user/logout");
       return res.data;
     } catch (error) {
-      return SERVER_ERROR as UserResponse;
+      return SERVER_ERROR;
     }
   },
 };

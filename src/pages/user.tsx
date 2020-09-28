@@ -26,21 +26,13 @@ const User: NextPage = () => {
   return (
     <Layout>
       <Wrapper>
-        {user ? (
-          <Stack>
-            <Text>Username = {user.username}</Text>
-            <Text>Email = {user.email}</Text>
-            <Text>
-              Created ={" "}
-              {new Date(parseInt(user.createdAt)).toLocaleDateString()}
-            </Text>
-            <Text>Balance = {user.balance}</Text>
-          </Stack>
-        ) : (
-          <Flex>
+        <Flex wrap="wrap">
+          {user ? (
+            <Text wordBreak="break-word">{JSON.stringify(user)}</Text>
+          ) : (
             <Spinner mx="auto" />
-          </Flex>
-        )}
+          )}
+        </Flex>
       </Wrapper>
     </Layout>
   );
