@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Banner from "../../components/Banner";
 import { Layout } from "../../components/Layout";
+import QuantitySelect from "../../components/QuantitySelect";
 import { Wrapper } from "../../components/Wrapper";
 import itemService from "../../services/itemService";
 import { ItemType } from "../../types";
@@ -65,9 +66,10 @@ export const Item: NextPage = () => {
                 <Heading size="lg">${item.price}</Heading>
                 <Text>{item.sellor.username}</Text>
                 <Text wordBreak="break-word">{item.description}</Text>
-                <Stack mx="auto" mt="auto">
-                  <Button w={150}>Add to Cart</Button>
-                  <Button w={150}>Buy</Button>
+                <Stack w="100%" mx="auto" mt="auto">
+                  <QuantitySelect />
+                  <Button>Add to Cart</Button>
+                  <Button>Buy</Button>
                 </Stack>
               </Stack>
             </Flex>
