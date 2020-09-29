@@ -1,18 +1,17 @@
 import {
-  Box,
-  Text,
-  Flex,
-  Image,
-  Heading,
-  Spinner,
-  Divider,
   Button,
+  Divider,
+  Flex,
+  Heading,
+  Image,
+  Spinner,
   Stack,
+  Text,
 } from "@chakra-ui/core";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import Banner from "../../components/Banner";
+import AddToCartButton from "../../components/AddToCartButton";
 import { Layout } from "../../components/Layout";
 import QuantitySelect from "../../components/QuantitySelect";
 import { Wrapper } from "../../components/Wrapper";
@@ -24,9 +23,7 @@ export const Item: NextPage = () => {
   const { id } = router.query;
   const [item, setItem] = useState<ItemType>();
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    console.log(router.query);
     setLoading(true);
     if (typeof id === "string") {
       itemService.getItemById(id).then((res) => {
@@ -37,10 +34,8 @@ export const Item: NextPage = () => {
         setItem(res.item);
         setLoading(false);
       });
-    } else {
-      setLoading(false);
     }
-  }, []);
+  }, [id]);
 
   let body;
   if (!loading) {
@@ -68,7 +63,7 @@ export const Item: NextPage = () => {
                 <Text wordBreak="break-word">{item.description}</Text>
                 <Stack w="100%" mx="auto" mt="auto">
                   <QuantitySelect />
-                  <Button>Add to Cart</Button>
+                  <AddToCartButton quantity={1} itemId={item.id} />
                   <Button>Buy</Button>
                 </Stack>
               </Stack>
@@ -76,14 +71,6 @@ export const Item: NextPage = () => {
           </Flex>
           <Divider />
         </>
-      );
-    } else {
-      body = (
-        <Banner
-          status="error"
-          message="I HAVE NO IDEA WHATS GOING ON"
-          title="???"
-        />
       );
     }
   } else {
