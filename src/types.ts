@@ -17,6 +17,13 @@ export type ItemType = {
   };
 };
 
+export type CartType = [
+  {
+    quantity: number;
+    item: ItemType;
+  }
+];
+
 export type ErrorType = {
   field: string;
   msg: string;
