@@ -1,7 +1,6 @@
 import {
-  Box,
-  Divider,
   Flex,
+  FlexProps,
   Heading,
   Image,
   Link,
@@ -14,44 +13,41 @@ import React from "react";
 type ItemCardProps = {
   title: string;
   description: string;
-  username: string;
   href: string;
-  price: number;
+  price: string;
   height?: number;
-};
+} & FlexProps;
 
 export const ItemCard: React.FC<ItemCardProps> = ({
   title,
   description,
   href,
   price,
-  height = 200,
+  height,
+  ...props
 }) => {
   return (
-    <Box>
-      <Flex h={height}>
+    <Flex height={height} {...props}>
+      <NextLink href={href}>
+        <Link>
+          <Image
+            size={height}
+            objectFit="scale-down"
+            src=""
+            alt="Item Picture"
+          ></Image>
+        </Link>
+      </NextLink>
+      <Stack ml={2}>
         <NextLink href={href}>
           <Link>
-            <Image
-              size={height}
-              objectFit="scale-down"
-              src=""
-              alt="Item Picture"
-            ></Image>
+            <Heading size="md">{title}</Heading>
           </Link>
         </NextLink>
-        <Stack ml={2}>
-          <NextLink href={href}>
-            <Link>
-              <Heading size="md">{title}</Heading>
-            </Link>
-          </NextLink>
-          <Heading size="md">${price.toFixed(2)}</Heading>
-          <Text>{description}</Text>
-        </Stack>
-      </Flex>
-      <Divider />
-    </Box>
+        <Heading size="md">{price}</Heading>
+        <Text>{description}</Text>
+      </Stack>
+    </Flex>
   );
 };
 

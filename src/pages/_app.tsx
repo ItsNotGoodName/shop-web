@@ -2,7 +2,7 @@ import { CSSReset, ThemeProvider } from "@chakra-ui/core";
 import Axios from "axios";
 import theme from "../theme";
 
-Axios.defaults.baseURL = "http://localhost:4000";
+Axios.defaults.baseURL = "http://192.168.1.200:4000";
 Axios.defaults.headers = {
   "Content-Type": "application/json",
 };

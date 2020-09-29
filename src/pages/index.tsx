@@ -1,4 +1,4 @@
-import { Flex, Spinner } from "@chakra-ui/core";
+import { Flex, Spinner, Divider } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
@@ -55,15 +55,19 @@ const Index: NextPage = () => {
             <Flex mb={5}>
               <Paginator setPage={setPage} page={page} mx="auto" />
             </Flex>
+            <Divider />
             {items.map((item) => (
-              <ItemCard
-                key={item.id}
-                href={`/item/${encodeURIComponent(item.id)}`}
-                title={item.title}
-                description={item.description}
-                price={item.price}
-                username={item.sellor.username}
-              />
+              <>
+                <ItemCard
+                  key={item.id}
+                  href={`/item/${encodeURIComponent(item.id)}`}
+                  title={item.title}
+                  description={item.description}
+                  price={`\$${item.price.toFixed(2)}`}
+                  height={200}
+                />
+                <Divider />
+              </>
             ))}
             <Flex my={5}>
               <Paginator setPage={setPage} page={page} mx="auto" />

@@ -1,20 +1,22 @@
-import { Text, Box, Flex, Select } from "@chakra-ui/core";
+import { Flex, FlexProps, Select, Text } from "@chakra-ui/core";
 import * as React from "react";
 
-interface IQuantitySelectProps {}
+type IQuantitySelectProps = {} & FlexProps;
 
-const QuantitySelect: React.FunctionComponent<IQuantitySelectProps> = () => {
+const QuantitySelect: React.FunctionComponent<IQuantitySelectProps> = ({
+  ...props
+}) => {
   const opts = [];
   for (let i = 1; i < 100; i++) {
-    opts.push(<option>{i}</option>);
+    opts.push(<option key={i}>{i}</option>);
   }
 
   return (
-    <Flex my={2}>
-      <Text my="auto" mr={3}>
+    <Flex {...props}>
+      <Text my="auto" mr={4}>
         Quantity
       </Text>
-      <Select>{opts}</Select>
+      <Select my="auto">{opts}</Select>
     </Flex>
   );
 };
