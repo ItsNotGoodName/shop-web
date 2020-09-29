@@ -1,12 +1,12 @@
-import { Button, Flex, Heading, MenuItem, Spinner } from "@chakra-ui/core";
+import { Flex, Heading, MenuItem, Spinner } from "@chakra-ui/core";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import userService from "../../services/userService";
 import { UserType } from "../../types";
+import SearchBox from "../SearchBox";
 import { NavItem } from "./NavItem";
 import NavMenu from "./NavMenu";
-import SearchBox from "../SearchBox";
 
 export const NavBar: React.FC = () => {
   const [user, setUser] = useState<UserType | undefined>();
@@ -43,13 +43,8 @@ export const NavBar: React.FC = () => {
           <NextLink href="/sell">
             <MenuItem>Sell</MenuItem>
           </NextLink>
-        </NavMenu>
-        <Flex>
-          <Button
-            variant="ghost"
-            rounded="false"
-            height="100%"
-            fontWeight="0"
+          <MenuItem
+            as="button"
             onClick={() => {
               setLogginOut(true);
               userService.logout().then(() => {
@@ -57,11 +52,13 @@ export const NavBar: React.FC = () => {
                 router.push("/");
               });
             }}
-            isLoading={!!loggingOut}
           >
             Logout
-          </Button>
-        </Flex>
+          </MenuItem>
+        </NavMenu>
+        <>
+          <NavItem href="/cart">Cart</NavItem>
+        </>
       </>
     ) : (
       <>
