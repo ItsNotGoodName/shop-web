@@ -26,6 +26,7 @@ type CartType = [
 
 const Cart: NextPage = () => {
   const [cart, setCart] = useState<CartType>();
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     cartService.getCart().then(({ errors, cart }) => {
@@ -33,11 +34,12 @@ const Cart: NextPage = () => {
       } else {
         setCart(cart);
       }
+      setRefresh(false);
     });
-  }, []);
+  }, [refresh]);
 
   let body = cart ? (
-    cart?.map(({ item }) => (
+    cart?.map(({ item, quantity }, index) => (
       <Box key={item.id}>
         <Flex>
           <Flex flexGrow={1} mr={4} wrap="wrap">
@@ -51,7 +53,20 @@ const Cart: NextPage = () => {
               price={item.price}
               title={item.title}
             />
-            <QuantitySelect w={["100%", "150px"]} />
+            <QuantitySelect
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                const quantity = parseInt(event.target.value);
+                cartService
+                  .setCart({ itemId: item.id, quantity })
+                  .then(({ success }) => {
+                    if (success) {
+                      setRefresh(true);
+                    }
+                  });
+              }}
+              quantity={quantity}
+              w={["100%", "150px"]}
+            />
           </Flex>
           <Flex>
             <IconButton

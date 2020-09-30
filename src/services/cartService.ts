@@ -21,7 +21,7 @@ export default {
       return SERVER_ERROR;
     }
   },
-  addCart: async (params: {
+  setCart: async (params: {
     itemId: string;
     quantity: number;
   }): Promise<BoolResponse> => {

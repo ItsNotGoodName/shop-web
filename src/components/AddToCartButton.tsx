@@ -21,7 +21,7 @@ const AddToCartButton: React.FunctionComponent<IAddToCartButtonProps> = ({
       onClick={() => {
         setLoading(true);
         cartService
-          .addCart({ itemId, quantity })
+          .setCart({ itemId, quantity })
           .then(({ errors, success }) => {
             if (!errors && success) {
               router.push("/cart");
