@@ -22,9 +22,9 @@ export default {
     }
   },
   setCart: async (params: {
-    itemId: string;
+    itemId: string | number;
     quantity: number;
-  }): Promise<BoolResponse> => {
+  }): Promise<CartResponse> => {
     try {
       const res = await Axios.post("/cart", params);
       return res.data;

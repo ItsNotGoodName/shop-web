@@ -1,8 +1,9 @@
 import { Flex, FlexProps, Select, Text } from "@chakra-ui/core";
-import React from "react";
+import React, { useState } from "react";
 
 type IQuantitySelectProps = {
   quantity: number;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 } & FlexProps;
 
 const QuantitySelect: React.FunctionComponent<IQuantitySelectProps> = ({
@@ -11,15 +12,12 @@ const QuantitySelect: React.FunctionComponent<IQuantitySelectProps> = ({
   ...props
 }) => {
   const opts = [];
-  for (let i = 1; i < 100; i++) {
-    opts.push(<option key={i}>{i}</option>);
+  for (let i = 99; i > 0; i--) {
+    opts.push(<option label={"Qty: " + i} key={i} value={i} />);
   }
 
   return (
     <Flex {...props}>
-      <Text my="auto" mr={4}>
-        Quantity
-      </Text>
       <Select onChange={onChange} my="auto" value={quantity}>
         {opts}
       </Select>

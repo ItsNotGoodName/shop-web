@@ -3,6 +3,7 @@ import {
   ButtonGroup,
   ButtonGroupProps,
   ButtonProps,
+  IconButton,
 } from "@chakra-ui/core";
 import React from "react";
 
@@ -55,20 +56,31 @@ export const Paginator: React.FC<Paginator> = ({
 
   return (
     <ButtonGroup {...props}>
-      <Button onClick={onClickHandler(0)} {...leftProps}>
-        {"<<"}
-      </Button>
-      <Button onClick={onClickHandler(1)} {...leftProps}>
-        {" "}
-        {"<"}
-      </Button>
+      <IconButton
+        icon="chevron-left"
+        aria-label=""
+        onClick={onClickHandler(0)}
+        {...leftProps}
+      />
+      <IconButton
+        icon="chevron-left"
+        aria-label=""
+        onClick={onClickHandler(1)}
+        {...leftProps}
+      />
       <Button>{currentPage}</Button>
-      <Button onClick={onClickHandler(2)} {...rightProps}>
-        {">"}
-      </Button>
-      <Button onClick={onClickHandler(3)} {...rightProps}>
-        {">>"}
-      </Button>
+      <IconButton
+        icon="chevron-right"
+        aria-label=""
+        onClick={onClickHandler(2)}
+        {...rightProps}
+      />
+      <IconButton
+        icon="chevron-right"
+        aria-label=""
+        onClick={onClickHandler(3)}
+        {...rightProps}
+      />
     </ButtonGroup>
   );
 };

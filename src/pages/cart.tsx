@@ -39,47 +39,51 @@ const Cart: NextPage = () => {
   }, [refresh]);
 
   let body = cart ? (
-    cart?.map(({ item, quantity }, index) => (
-      <Box key={item.id}>
-        <Flex>
-          <Flex flexGrow={1} mr={4} wrap="wrap">
-            <ItemCard
-              w={["100%", "auto"]}
-              flexGrow={1}
-              username=""
-              href={"/item/" + item.id}
-              description=""
-              height={100}
-              price={item.price}
-              title={item.title}
-            />
-            <QuantitySelect
-              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                const quantity = parseInt(event.target.value);
-                cartService
-                  .setCart({ itemId: item.id, quantity })
-                  .then(({ success }) => {
-                    if (success) {
-                      setRefresh(true);
-                    }
-                  });
-              }}
-              quantity={quantity}
-              w={["100%", "150px"]}
-            />
-          </Flex>
+    cart?.map(({ item, quantity }, index) => {
+      return (
+        <Box key={item.id}>
           <Flex>
-            <IconButton
-              variantColor="red"
-              aria-label="Remove item"
-              icon="close"
-              size="sm"
-            />
+            <Flex flexGrow={1} mr={4} wrap="wrap">
+              <ItemCard
+                w={["100%", "auto"]}
+                flexGrow={1}
+                username=""
+                href={"/item/" + item.id}
+                description=""
+                height={100}
+                price={item.price}
+                title={item.title}
+              />
+              <QuantitySelect
+                onChange={async (
+                  event: React.ChangeEvent<HTMLSelectElement>
+                ) => {
+                  const newQuantity = parseInt(event.target.value);
+                  const data = await cartService.setCart({
+                    itemId: item.id,
+                    quantity: newQuantity,
+                  });
+                  if (!data.errors) {
+                    setCart(data.cart);
+                  }
+                }}
+                quantity={quantity}
+                w={["100%", "150px"]}
+              />
+            </Flex>
+            <Flex>
+              <IconButton
+                variantColor="red"
+                aria-label="Remove item"
+                icon="close"
+                size="sm"
+              />
+            </Flex>
           </Flex>
-        </Flex>
-        <Divider />
-      </Box>
-    ))
+          <Divider />
+        </Box>
+      );
+    })
   ) : (
     <Spinner mx="auto" />
   );

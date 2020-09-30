@@ -22,6 +22,7 @@ export const Item: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [item, setItem] = useState<ItemType>();
+  const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
@@ -43,18 +44,19 @@ export const Item: NextPage = () => {
       body = (
         <>
           <Flex wrap="wrap" p={4}>
-            <Image
-              w={["100%", "60%"]}
-              src="https://images-na.ssl-images-amazon.com/images/I/61Q8oyp6wHL._AC_SL1500_.jpg"
-              alt={item.title}
-              objectFit="scale-down"
-            />
+            <Flex flexGrow={1} w={["100%", 0]}>
+              <Image
+                src="https://images-na.ssl-images-amazon.com/images/I/61Q8oyp6wHL._AC_SL1500_.jpg"
+                alt={item.title}
+                objectFit="scale-down"
+              />
+            </Flex>
             <Flex
               pl={[0, 5]}
               pt={[5, 0]}
               ml="auto"
               minH={450}
-              w={["100%", "40%"]}
+              w={["100%", 300]}
             >
               <Stack p={4} w="100%" border="solid #EEF1F6 1px">
                 <Heading>{item.title}</Heading>
@@ -62,8 +64,13 @@ export const Item: NextPage = () => {
                 <Text>{item.sellor.username}</Text>
                 <Text wordBreak="break-word">{item.description}</Text>
                 <Stack w="100%" mx="auto" mt="auto">
-                  <QuantitySelect />
-                  <AddToCartButton quantity={1} itemId={item.id} />
+                  <QuantitySelect
+                    onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                      setQuantity(parseInt(event.target.value));
+                    }}
+                    quantity={quantity}
+                  />
+                  <AddToCartButton quantity={quantity} itemId={item.id} />
                   <Button>Buy</Button>
                 </Stack>
               </Stack>
