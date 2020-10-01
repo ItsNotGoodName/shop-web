@@ -62,7 +62,9 @@ const Cart: NextPage = () => {
                     itemId: item.id,
                     quantity: newQuantity,
                   });
-                  if (!data.errors) {
+                  if (data.errors) {
+                    toast(TOAST_GENERIC_ERROR);
+                  } else {
                     setCart(data.cart);
                   }
                   setLoading(false);
@@ -83,7 +85,11 @@ const Cart: NextPage = () => {
                     itemId: item.id,
                     quantity: 0,
                   });
-                  setCart(data.cart);
+                  if (data.errors) {
+                    toast(TOAST_GENERIC_ERROR);
+                  } else {
+                    setCart(data.cart);
+                  }
                   setLoading(false);
                 }}
               />
