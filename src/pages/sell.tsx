@@ -1,14 +1,10 @@
-import { Link, Box, Button, Text, Flex } from "@chakra-ui/core";
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
+import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React from "react";
-import NextLink from "next/link";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
-import userService from "../services/userService";
-import { toErrorMap } from "../utils/toErrorMap";
-import { NextPage } from "next";
 
 type SellParameters = {
   title: string;

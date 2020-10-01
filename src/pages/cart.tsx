@@ -32,7 +32,7 @@ const Cart: NextPage = () => {
   }, [refresh]);
 
   let body = cart ? (
-    cart.cartItems.map(({ item, quantity }, index) => {
+    cart.cartItems.map(({ item, quantity }) => {
       return (
         <Box key={item.id}>
           <Flex>

@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
+import { TOAST_SERVER_ERROR } from "../constants";
 import userService from "../services/userService";
 import { toErrorMap } from "../utils/toErrorMap";
 
@@ -48,12 +49,7 @@ const Register = () => {
             if (data.errors) {
               const errorMap = toErrorMap(data.errors);
               if (errorMap.server) {
-                toast({
-                  title: "Could not acess server",
-                  status: "error",
-                  duration: 5000,
-                  isClosable: true,
-                });
+                toast(TOAST_SERVER_ERROR);
               }
               setErrors(errorMap);
               return;

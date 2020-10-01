@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, Stack, Text } from "@chakra-ui/core";
+import { Flex, Spinner, Text } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
