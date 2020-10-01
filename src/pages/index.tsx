@@ -2,7 +2,7 @@ import { Box, Divider, Flex, Spinner, useToast } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { PageType, Paginator } from "../components/Paginator";
 import { Wrapper } from "../components/Wrapper";
 import { TOAST_SERVER_ERROR } from "../constants";
