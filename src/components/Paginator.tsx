@@ -2,7 +2,6 @@ import {
   Button,
   ButtonGroup,
   ButtonGroupProps,
-  ButtonProps,
   IconButton,
 } from "@chakra-ui/core";
 import React from "react";
@@ -31,7 +30,7 @@ export const Paginator: React.FC<Paginator> = ({
     leftProps = hiddenProps;
   }
   const onClickHandler = (type: number) => {
-    return (event: React.MouseEvent<ButtonProps, MouseEvent>) => {
+    return () => {
       let toPage: number = 1;
       switch (type) {
         case 0:

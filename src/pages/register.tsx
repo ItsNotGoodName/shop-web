@@ -63,7 +63,7 @@ const Register = () => {
             });
           }}
         >
-          {({ isSubmitting, setValues, values }) => (
+          {({ isSubmitting, values }) => (
             <Box>
               <Form>
                 <Box mb={2}>

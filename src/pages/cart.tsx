@@ -92,10 +92,9 @@ const Cart: NextPage = () => {
         </Box>
       );
     })
-  ) : (
+  ) : loading ? (
     <Spinner mx="auto" />
-  );
-
+  ) : null;
   return (
     <Layout>
       <Wrapper variant="wide">

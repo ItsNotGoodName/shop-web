@@ -1,6 +1,5 @@
 import { Formik } from "formik";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import React from "react";
 import { InputField } from "../components/InputField";
 import { Layout } from "../components/Layout";
@@ -13,7 +12,6 @@ type SellParameters = {
 };
 
 const Sell: NextPage = () => {
-  const router = useRouter();
   return (
     <Layout>
       <Wrapper>
@@ -21,7 +19,7 @@ const Sell: NextPage = () => {
           initialValues={
             { title: "", price: 0, description: "" } as SellParameters
           }
-          onSubmit={async (values: SellParameters, { setErrors }) => {
+          onSubmit={async () => {
             // const data = await userService.register(values);
             // console.log(data);
             // if (data.errors) {
@@ -31,7 +29,7 @@ const Sell: NextPage = () => {
             // router.push("/");
           }}
         >
-          {({ isSubmitting }) => (
+          {({}) => (
             <>
               <InputField name="title" label="Title"></InputField>
               <InputField name="price" label="Price"></InputField>

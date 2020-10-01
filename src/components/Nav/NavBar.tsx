@@ -11,7 +11,6 @@ import NavMenu from "./NavMenu";
 export const NavBar: React.FC = () => {
   const [user, setUser] = useState<UserType | undefined>();
   const [loading, setLoading] = useState(true);
-  const [loggingOut, setLogginOut] = useState<Boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -46,7 +45,6 @@ export const NavBar: React.FC = () => {
           <MenuItem
             as="button"
             onClick={() => {
-              setLogginOut(true);
               userService.logout().then(() => {
                 setUser(undefined);
                 router.push("/");

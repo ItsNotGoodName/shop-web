@@ -1,4 +1,4 @@
-import { Input, Flex, Button, IconButton } from "@chakra-ui/core";
+import { Flex, IconButton, Input } from "@chakra-ui/core";
 import React from "react";
 
 const SearchBox: React.FC = () => {

@@ -3,7 +3,6 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  CloseButton,
 } from "@chakra-ui/core";
 
 export type BannerProps = {

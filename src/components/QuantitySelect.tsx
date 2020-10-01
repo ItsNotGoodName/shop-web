@@ -1,5 +1,5 @@
-import { Flex, FlexProps, Select, Text } from "@chakra-ui/core";
-import React, { useState } from "react";
+import { Flex, FlexProps, Select } from "@chakra-ui/core";
+import React from "react";
 
 type IQuantitySelectProps = {
   quantity: number;
