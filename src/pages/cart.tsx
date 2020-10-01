@@ -5,8 +5,10 @@ import {
   Flex,
   Heading,
   IconButton,
+  Skeleton,
   Spinner,
   Stack,
+  useToast,
 } from "@chakra-ui/core";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
@@ -14,22 +16,25 @@ import ItemCard from "../components/ItemCard";
 import { Layout } from "../components/Layout";
 import QuantitySelect from "../components/QuantitySelect";
 import { Wrapper } from "../components/Wrapper";
+import { TOAST_GENERIC_ERROR, TOAST_SERVER_ERROR } from "../constants";
 import cartService from "../services/cartService";
 import { CartType } from "../types";
 
 const Cart: NextPage = () => {
+  TOAST_SERVER_ERROR;
+  const toast = useToast();
   const [cart, setCart] = useState<CartType | undefined>();
-  const [refresh, setRefresh] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     cartService.getCart().then(({ errors, cart }) => {
       if (errors) {
+        toast(TOAST_GENERIC_ERROR);
       } else {
         setCart(cart);
       }
-      setRefresh(false);
+      setLoading(false);
     });
-  }, [refresh]);
+  }, []);
 
   let body = cart ? (
     cart.cartItems.map(({ item, quantity }) => {
@@ -51,6 +56,7 @@ const Cart: NextPage = () => {
                   event: React.ChangeEvent<HTMLSelectElement>
                 ) => {
                   const newQuantity = parseInt(event.target.value);
+                  setLoading(true);
                   const data = await cartService.setCart({
                     itemId: item.id,
                     quantity: newQuantity,
@@ -58,6 +64,7 @@ const Cart: NextPage = () => {
                   if (!data.errors) {
                     setCart(data.cart);
                   }
+                  setLoading(false);
                 }}
                 quantity={quantity}
                 w={["100%", "150px"]}
@@ -70,11 +77,13 @@ const Cart: NextPage = () => {
                 icon="close"
                 size="sm"
                 onClick={async () => {
+                  setLoading(true);
                   const data = await cartService.setCart({
                     itemId: item.id,
                     quantity: 0,
                   });
                   setCart(data.cart);
+                  setLoading(false);
                 }}
               />
             </Flex>
@@ -96,11 +105,11 @@ const Cart: NextPage = () => {
           </Heading>
           <Divider />
           {body}
-          <Heading size="lg" ml="auto">
-            Total ${cart?.total.toFixed(2)}
-          </Heading>
+          <Skeleton mr="auto" isLoaded={!loading}>
+            <Heading size="lg">Total ${cart?.total.toFixed(2)}</Heading>
+          </Skeleton>
           <Divider />
-          <Button w="50%" mx="auto">
+          <Button isDisabled={loading} w="50%" mx="auto">
             Checkout
           </Button>
         </Stack>
