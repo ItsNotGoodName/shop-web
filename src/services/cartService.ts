@@ -7,11 +7,6 @@ type CartResponse = {
   cart?: CartType;
 };
 
-type BoolResponse = {
-  errors?: ErrorType[];
-  success?: boolean;
-};
-
 export default {
   getCart: async (): Promise<CartResponse> => {
     try {

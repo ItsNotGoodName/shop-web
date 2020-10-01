@@ -31,7 +31,6 @@ export const Item: NextPage = () => {
         if (res.errors) {
           return;
         }
-
         setItem(res.item);
         setLoading(false);
       });
@@ -70,7 +69,9 @@ export const Item: NextPage = () => {
                     }}
                     quantity={quantity}
                   />
-                  <AddToCartButton quantity={quantity} itemId={item.id} />
+                  <AddToCartButton quantity={quantity} itemId={item.id}>
+                    Add To Cart
+                  </AddToCartButton>
                   <Button>Buy</Button>
                 </Stack>
               </Stack>

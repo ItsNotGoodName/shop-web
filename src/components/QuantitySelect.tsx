@@ -4,7 +4,7 @@ import React from "react";
 type IQuantitySelectProps = {
   quantity: number;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  isDisabled: boolean;
+  isDisabled?: boolean;
 } & FlexProps;
 
 const QuantitySelect: React.FunctionComponent<IQuantitySelectProps> = ({

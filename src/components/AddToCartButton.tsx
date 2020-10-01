@@ -12,6 +12,7 @@ type IAddToCartButtonProps = {
 const AddToCartButton: React.FunctionComponent<IAddToCartButtonProps> = ({
   itemId,
   quantity,
+  children,
   ...props
 }) => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const AddToCartButton: React.FunctionComponent<IAddToCartButtonProps> = ({
       isLoading={loading}
       {...props}
     >
-      Add To Cart
+      {children}
     </Button>
   );
 };

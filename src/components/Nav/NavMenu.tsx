@@ -8,6 +8,7 @@ export const NavMenu: React.FC<NavMenuProp> = ({ text, children }) => {
     <Menu>
       <MenuButton
         as={Button}
+        // @ts-ignore
         variant="ghost"
         mt="auto"
         mb="auto"
