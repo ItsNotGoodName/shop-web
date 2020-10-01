@@ -17,12 +17,15 @@ export type ItemType = {
   };
 };
 
-export type CartType = [
-  {
-    quantity: number;
-    item: ItemType;
-  }
-];
+export type CartType = {
+  total: number;
+  cartItems: [
+    {
+      quantity: number;
+      item: ItemType;
+    }
+  ];
+};
 
 export type ErrorType = {
   field: string;

@@ -15,17 +15,10 @@ import { Layout } from "../components/Layout";
 import QuantitySelect from "../components/QuantitySelect";
 import { Wrapper } from "../components/Wrapper";
 import cartService from "../services/cartService";
-import { ItemType } from "../types";
-
-type CartType = [
-  {
-    quantity: number;
-    item: ItemType;
-  }
-];
+import { CartType } from "../types";
 
 const Cart: NextPage = () => {
-  const [cart, setCart] = useState<CartType>();
+  const [cart, setCart] = useState<CartType | undefined>();
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -39,7 +32,7 @@ const Cart: NextPage = () => {
   }, [refresh]);
 
   let body = cart ? (
-    cart?.map(({ item, quantity }, index) => {
+    cart.cartItems.map(({ item, quantity }, index) => {
       return (
         <Box key={item.id}>
           <Flex>
@@ -47,11 +40,10 @@ const Cart: NextPage = () => {
               <ItemCard
                 w={["100%", "auto"]}
                 flexGrow={1}
-                username=""
                 href={"/item/" + item.id}
                 description=""
                 height={100}
-                price={item.price}
+                price={`\$${item.price.toFixed(2)}`}
                 title={item.title}
               />
               <QuantitySelect
@@ -77,6 +69,13 @@ const Cart: NextPage = () => {
                 aria-label="Remove item"
                 icon="close"
                 size="sm"
+                onClick={async () => {
+                  const data = await cartService.setCart({
+                    itemId: item.id,
+                    quantity: 0,
+                  });
+                  setCart(data.cart);
+                }}
               />
             </Flex>
           </Flex>
@@ -97,6 +96,10 @@ const Cart: NextPage = () => {
           </Heading>
           <Divider />
           {body}
+          <Heading size="lg" ml="auto">
+            Total ${cart?.total.toFixed(2)}
+          </Heading>
+          <Divider />
           <Button w="50%" mx="auto">
             Checkout
           </Button>

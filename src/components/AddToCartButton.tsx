@@ -21,20 +21,18 @@ const AddToCartButton: React.FunctionComponent<IAddToCartButtonProps> = ({
     <Button
       onClick={() => {
         setLoading(true);
-        cartService
-          .setCart({ itemId, quantity })
-          .then(({ errors, success }) => {
-            if (!errors && success) {
-              router.push("/cart");
-            } else {
-              setLoading(false);
-              toast({
-                duration: 5000,
-                status: "error",
-                description: "Something went wrong",
-              });
-            }
-          });
+        cartService.setCart({ itemId, quantity }).then(({ errors }) => {
+          if (!errors) {
+            router.push("/cart");
+          } else {
+            setLoading(false);
+            toast({
+              duration: 5000,
+              status: "error",
+              description: "Something went wrong",
+            });
+          }
+        });
       }}
       isLoading={loading}
       {...props}
