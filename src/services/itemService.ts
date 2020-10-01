@@ -13,6 +13,16 @@ type ItemResponse = {
   errors?: ErrorType[];
 };
 
+export type SellParams = {
+  title: string;
+  description: string;
+  price: number;
+};
+
+export type SellResponse = {
+  errors?: ErrorType[];
+};
+
 export default {
   getNewItems: async (page = 1): Promise<ItemsResponse> => {
     try {
@@ -25,6 +35,14 @@ export default {
   getItemById: async (id: number | string): Promise<ItemResponse> => {
     try {
       const res = await Axios.get("/item/id/" + id);
+      return res.data;
+    } catch (error) {
+      return SERVER_ERROR;
+    }
+  },
+  sell: async (params: SellParams): Promise<SellResponse> => {
+    try {
+      const res = await Axios.post("/item/sell", params);
       return res.data;
     } catch (error) {
       return SERVER_ERROR;
