@@ -52,6 +52,7 @@ const Cart: NextPage = () => {
                 title={item.title}
               />
               <QuantitySelect
+                isDisabled={loading}
                 onChange={async (
                   event: React.ChangeEvent<HTMLSelectElement>
                 ) => {

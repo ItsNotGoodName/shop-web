@@ -1,4 +1,5 @@
 import {
+  Divider,
   Flex,
   FlexProps,
   Heading,
@@ -28,16 +29,18 @@ export const ItemCard: React.FC<ItemCardProps> = ({
 }) => {
   return (
     <Flex height={height} {...props}>
+      <Divider orientation="vertical" />
       <NextLink href={href}>
         <Link>
           <Image
             size={height}
             objectFit="scale-down"
-            src=""
+            src="https://images-na.ssl-images-amazon.com/images/I/61Q8oyp6wHL._AC_SL1500_.jpg"
             alt="Item Picture"
           ></Image>
         </Link>
       </NextLink>
+      <Divider orientation="vertical" />
       <Stack ml={2}>
         <NextLink href={href}>
           <Link>

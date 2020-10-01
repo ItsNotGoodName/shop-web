@@ -55,7 +55,7 @@ export const Item: NextPage = () => {
               pl={[0, 5]}
               pt={[5, 0]}
               ml="auto"
-              minH={450}
+              minH={[0, 450]}
               w={["100%", 300]}
             >
               <Stack p={4} w="100%" border="solid #EEF1F6 1px">

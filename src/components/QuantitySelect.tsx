@@ -4,11 +4,13 @@ import React from "react";
 type IQuantitySelectProps = {
   quantity: number;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  isDisabled: boolean;
 } & FlexProps;
 
 const QuantitySelect: React.FunctionComponent<IQuantitySelectProps> = ({
   quantity,
   onChange,
+  isDisabled,
   ...props
 }) => {
   const opts = [];
@@ -18,7 +20,12 @@ const QuantitySelect: React.FunctionComponent<IQuantitySelectProps> = ({
 
   return (
     <Flex {...props}>
-      <Select onChange={onChange} my="auto" value={quantity}>
+      <Select
+        isDisabled={isDisabled}
+        onChange={onChange}
+        my="auto"
+        value={quantity}
+      >
         {opts}
       </Select>
     </Flex>
