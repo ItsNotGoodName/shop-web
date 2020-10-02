@@ -35,7 +35,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           <Image
             size={height}
             objectFit="scale-down"
-            src="https://images-na.ssl-images-amazon.com/images/I/61Q8oyp6wHL._AC_SL1500_.jpg"
+            src="/static/images/unknown.svg"
             alt="Item Picture"
           ></Image>
         </Link>

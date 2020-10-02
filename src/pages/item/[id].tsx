@@ -45,7 +45,7 @@ export const Item: NextPage = () => {
           <Flex wrap="wrap" p={4}>
             <Flex flexGrow={1} w={["100%", 0]}>
               <Image
-                src="https://images-na.ssl-images-amazon.com/images/I/61Q8oyp6wHL._AC_SL1500_.jpg"
+                src="/static/images/unknown.svg"
                 alt={item.title}
                 objectFit="scale-down"
               />
