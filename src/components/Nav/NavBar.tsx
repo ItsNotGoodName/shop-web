@@ -35,7 +35,7 @@ export const NavBar: React.FC = () => {
     // :TODO Fix crash on pressing enter on menu items
     body = user ? (
       <>
-        <NavMenu text="Account">
+        <NavMenu text={user.username}>
           <NextLink href="/user">
             <MenuItem>Account</MenuItem>
           </NextLink>
