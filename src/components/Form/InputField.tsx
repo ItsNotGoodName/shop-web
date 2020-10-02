@@ -1,13 +1,14 @@
-import React, { InputHTMLAttributes } from "react";
-import { FieldValidator, useField } from "formik";
 import {
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
-  FormErrorMessage,
+  InputProps,
 } from "@chakra-ui/core";
+import { FieldValidator, useField } from "formik";
+import React from "react";
 
-type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+type InputFieldProps = InputProps<HTMLInputElement> & {
   label: string;
   name: string;
 } & { validate?: FieldValidator };

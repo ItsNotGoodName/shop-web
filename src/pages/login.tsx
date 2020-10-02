@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import * as Yup from "yup";
-import { InputField } from "../components/InputField";
+import { InputField } from "../components/Form/InputField";
 import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
 import { TOAST_SERVER_ERROR } from "../constants";

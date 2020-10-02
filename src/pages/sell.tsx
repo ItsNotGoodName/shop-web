@@ -1,9 +1,10 @@
-import { Button, Flex, useToast } from "@chakra-ui/core";
+import { Box, Button, Flex, useToast } from "@chakra-ui/core";
 import { Form, Formik } from "formik";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import React from "react";
-import { InputField } from "../components/InputField";
+import { InputField } from "../components/Form/InputField";
+import { TextareaField } from "../components/Form/TextareaField";
 import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
 import { TOAST_SERVER_ERROR } from "../constants";
@@ -34,11 +35,20 @@ const Sell: NextPage = () => {
         >
           {({ isSubmitting }) => (
             <Form>
-              <InputField name="title" label="Title"></InputField>
-              <InputField name="price" label="Price"></InputField>
-              <InputField name="description" label="description"></InputField>
-
-              <Flex mt={4}>
+              <Box mb={4}>
+                <InputField name="title" label="Title" />
+              </Box>
+              <Box mb={4}>
+                <InputField name="price" label="Price" type="number" />
+              </Box>
+              <Box mb={4}>
+                <TextareaField
+                  type="textarea"
+                  name="description"
+                  label="Description"
+                />
+              </Box>
+              <Flex>
                 <Button mx="auto" isLoading={isSubmitting} type="submit">
                   Sell
                 </Button>

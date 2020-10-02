@@ -59,7 +59,7 @@ export const Item: NextPage = () => {
             >
               <Stack p={4} w="100%" border="solid #EEF1F6 1px">
                 <Heading>{item.title}</Heading>
-                <Heading size="lg">${item.price}</Heading>
+                <Heading size="lg">{`\$${item.price.toFixed(2)}`}</Heading>
                 <Text>{item.sellor.username}</Text>
                 <Text wordBreak="break-word">{item.description}</Text>
                 <Stack w="100%" mx="auto" mt="auto">
