@@ -11,3 +11,5 @@ export const TOAST_GENERIC_ERROR: useToastOptions = {
   status: "error",
   description: "Something went wrong",
 };
+
+export const API_URL = "http://localhost:4000/";
