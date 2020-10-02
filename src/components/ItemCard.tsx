@@ -28,18 +28,20 @@ export const ItemCard: React.FC<ItemCardProps> = ({
   ...props
 }) => {
   return (
-    <Flex height={height} {...props}>
+    <Flex {...props}>
       <Divider orientation="vertical" />
-      <NextLink href={href}>
-        <Link>
-          <Image
-            size={height}
-            objectFit="scale-down"
-            src="/static/images/unknown.svg"
-            alt="Item Picture"
-          ></Image>
-        </Link>
-      </NextLink>
+      <Flex minW={height}>
+        <NextLink href={href}>
+          <Link>
+            <Image
+              size={height}
+              objectFit="scale-down"
+              src="/static/images/unknown.svg"
+              alt="Item Picture"
+            ></Image>
+          </Link>
+        </NextLink>
+      </Flex>
       <Divider orientation="vertical" />
       <Stack ml={2}>
         <NextLink href={href}>
@@ -48,7 +50,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           </Link>
         </NextLink>
         <Heading size="md">{price}</Heading>
-        <Text>{description}</Text>
+        <Text wordBreak="break-all">{description}</Text>
       </Stack>
     </Flex>
   );
