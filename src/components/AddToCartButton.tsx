@@ -1,8 +1,9 @@
 import { Button, ButtonProps, useToast } from "@chakra-ui/core";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { TOAST_GENERIC_ERROR } from "../constants";
+import { TOAST_GENERIC_ERROR, TOAST_LOGIN_PLEASE } from "../constants";
 import cartService from "../services/cartService";
+import { toErrorMap } from "../utils/toErrorMap";
 
 type IAddToCartButtonProps = {
   itemId: string | number;
@@ -27,8 +28,14 @@ const AddToCartButton: React.FunctionComponent<IAddToCartButtonProps> = ({
           if (!errors) {
             router.push("/cart");
           } else {
+            const errorMap = toErrorMap(errors);
+            if (errorMap.login) {
+              router.push("/login?redirect=" + router.asPath);
+              toast(TOAST_LOGIN_PLEASE);
+            } else {
+              toast(TOAST_GENERIC_ERROR);
+            }
             setLoading(false);
-            toast(TOAST_GENERIC_ERROR);
           }
         });
       }}

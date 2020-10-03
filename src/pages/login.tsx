@@ -24,6 +24,10 @@ const LoginSchema = Yup.object().shape({
 const Login = () => {
   const router = useRouter();
   const toast = useToast();
+
+  const { redirect } = router.query;
+  console.log(redirect);
+
   return (
     <Layout>
       <Wrapper>
@@ -49,7 +53,11 @@ const Login = () => {
               status: "success",
               duration: 5000,
             });
-            router.push("/");
+            if (redirect) {
+              router.push(redirect);
+            } else {
+              router.push("/");
+            }
           }}
         >
           {({ isSubmitting }) => (

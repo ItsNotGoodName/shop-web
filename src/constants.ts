@@ -12,4 +12,10 @@ export const TOAST_GENERIC_ERROR: useToastOptions = {
   description: "Something went wrong",
 };
 
+export const TOAST_LOGIN_PLEASE: useToastOptions = {
+  duration: 5000,
+  status: "info",
+  description: "Login is required",
+};
+
 export const API_URL = "http://localhost:4000/";
