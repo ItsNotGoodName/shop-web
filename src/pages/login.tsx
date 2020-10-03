@@ -53,7 +53,7 @@ const Login = () => {
               status: "success",
               duration: 5000,
             });
-            if (redirect) {
+            if (typeof redirect == "string") {
               router.push(redirect);
             } else {
               router.push("/");

@@ -7,6 +7,7 @@ import {
   Spinner,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/core";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -15,6 +16,8 @@ import AddToCartButton from "../../components/AddToCartButton";
 import { Layout } from "../../components/Layout";
 import QuantitySelect from "../../components/QuantitySelect";
 import { Wrapper } from "../../components/Wrapper";
+import { TOAST_GENERIC_ERROR } from "../../constants";
+import cartService from "../../services/cartService";
 import itemService from "../../services/itemService";
 import { ItemType } from "../../types";
 
@@ -24,6 +27,7 @@ export const Item: NextPage = () => {
   const [item, setItem] = useState<ItemType>();
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
   useEffect(() => {
     setLoading(true);
     if (typeof id === "string") {
@@ -72,7 +76,23 @@ export const Item: NextPage = () => {
                   <AddToCartButton quantity={quantity} itemId={item.id}>
                     Add To Cart
                   </AddToCartButton>
-                  <Button>Buy</Button>
+                  <Button
+                    isDisabled={loading}
+                    onClick={async () => {
+                      setLoading(true);
+                      const data = await cartService.setCart({
+                        itemId: item.id,
+                        quantity,
+                      });
+                      if (data.errors) {
+                        toast(TOAST_GENERIC_ERROR);
+                      } else {
+                        router.push("/checkout");
+                      }
+                    }}
+                  >
+                    Buy
+                  </Button>
                 </Stack>
               </Stack>
             </Flex>

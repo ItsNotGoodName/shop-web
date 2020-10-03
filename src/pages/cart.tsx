@@ -11,17 +11,17 @@ import {
   useToast,
 } from "@chakra-ui/core";
 import { NextPage } from "next";
+import NextLink from "next/link";
 import React, { useEffect, useState } from "react";
 import ItemCard from "../components/ItemCard";
 import { Layout } from "../components/Layout";
 import QuantitySelect from "../components/QuantitySelect";
 import { Wrapper } from "../components/Wrapper";
-import { TOAST_GENERIC_ERROR, TOAST_SERVER_ERROR } from "../constants";
+import { TOAST_GENERIC_ERROR } from "../constants";
 import cartService from "../services/cartService";
 import { CartType } from "../types";
 
 const Cart: NextPage = () => {
-  TOAST_SERVER_ERROR;
   const toast = useToast();
   const [cart, setCart] = useState<CartType | undefined>();
   const [loading, setLoading] = useState(true);
@@ -115,9 +115,11 @@ const Cart: NextPage = () => {
             <Heading size="lg">Total ${cart?.total.toFixed(2)}</Heading>
           </Skeleton>
           <Divider />
-          <Button isDisabled={loading} w="50%" mx="auto">
-            Checkout
-          </Button>
+          <NextLink href="/checkout">
+            <Button isDisabled={loading} w="50%" mx="auto">
+              Checkout
+            </Button>
+          </NextLink>
         </Stack>
       </Wrapper>
     </Layout>
