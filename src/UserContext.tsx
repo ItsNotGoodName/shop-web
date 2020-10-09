@@ -25,7 +25,7 @@ export const UserProvider: React.FC = ({ children }) => {
       .catch((error) => {
         throw error;
       });
-  }, []);
+  }, [children]);
 
   return (
     <UserContextState.Provider value={user}>
