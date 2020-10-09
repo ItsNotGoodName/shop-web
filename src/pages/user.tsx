@@ -1,28 +1,13 @@
 import { Divider, Heading, Stack } from "@chakra-ui/core";
 import { NextPage } from "next";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Layout } from "../components/Layout";
 import RowKeyValue from "../components/RowKeyValue";
 import { Wrapper } from "../components/Wrapper";
-import userService from "../services/userService";
-import { UserType } from "../types";
+import { useUserState } from "../UserContext";
 
 const User: NextPage = () => {
-  const [user, setUser] = useState<UserType | undefined>();
-  useEffect(() => {
-    userService
-      .me()
-      .then((data) => {
-        if (data.errors) {
-          return;
-        } else {
-          setUser(data.user);
-        }
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }, []);
+  const user = useUserState();
 
   return (
     <Layout>
